@@ -1,14 +1,33 @@
-	
-	
-	-- want to load data from csv file to the DW
-	-- using Full Loads approach
+/*
+	=======================================================
+	Stored ProcedureL Load Bronze Layer (Bronze -> Silver)
+	=======================================================
+	Script Purpose:
+		This Proc performs the Extract process from different sources and Load data to the bronze layer
+		to populate the bronze schema.
+
+	Actions Performed:
+		- Truncates bronze tables.
+		- Inserts extracted data from the Sources into the Bronze tables.
+
+	Parameters:
+		None.
+
+	Usage Example:
+		EXEC bronze.load_bronze;
+	=======================================================
+
+*/
+/*	
+	- want to load data from a CSV file to the DW
+	- using the Full Loads approach
 
 	------------- Notes -------------
-	-- how to handle the file in BULK INSERT [] WITH () statement 
-	-- 1st row is the header -->  (FIRSTROW = 2) > Skip 1st row
-	-- specify the Delimiter -->  (FIELDTERMINATOR = ',') >> the seperator is a comma
-	-- TABLOCK --> to Improve performance, Lock the entire table (no trans)
-
+	- how to handle the file in the BULK INSERT [] WITH () statement 
+	- 1st row is the header -->  (FIRSTROW = 2) > Skip 1st row
+	- specify the Delimiter -->  (FIELDTERMINATOR = ',') >> the seperator is a comma
+	- TABLOCK --> to improve performance, lock the entire table (no trans)
+*/
 	----------------------------------------------------------
 CREATE OR ALTER PROC bronze.load_bronze
 AS
