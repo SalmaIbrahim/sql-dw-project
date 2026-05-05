@@ -1,4 +1,24 @@
--- insert values to the Silver Layer
+/*
+	=======================================================
+	Stored ProcedureL Load Silver Layer (Bronze -> Silver)
+	=======================================================
+	Script Purpose:
+		This Proc performs the ETL (Extract -> from the bronze layer, Transform -> cleansing, Load -> to the silver layer) process 
+		to populate the silver schema from the bronze schema
+
+	Actions Performed:
+		- Truncates silver tables.
+		- Inserts transformed and cleansed data from Bronze into Silver tables.
+
+	Parameters:
+		None.
+
+	Usage Example:
+		EXEC silver.load_silver;
+	=======================================================
+
+*/
+
 CREATE OR ALTER PROC silver.load_silver
 AS
 BEGIN
