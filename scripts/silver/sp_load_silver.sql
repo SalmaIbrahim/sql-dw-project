@@ -34,12 +34,12 @@ BEGIN
 		Print '------------- Customer Info -------------';
 		
 		set @start_time = GETDATE();
-		-- in case the table is exist to AVOID data duplication
-		print 'Executing TRUNCATE';
+		-- in case the table exists to AVOID data duplication
+		print 'Executing TRUNCATE.';
 		TRUNCATE TABLE silver.crm_cust_info;
 
 		-- insert cust_info data
-		print 'Executing INSERT';
+		print 'Executing INSERT.';
 		INSERT INTO silver.crm_cust_info
 		(
 		cst_id
@@ -55,7 +55,7 @@ BEGIN
 		, cst_t.cst_key
 		, TRIM(cst_t.cst_firstname) AS cst_firstname
 		, TRIM(cst_t.cst_lAStname) AS cst_lAStname
-		, CASE UPPER(TRIM(cst_t.cst_gndr)) -- in CASE letters are not Capital and have unwanted spaces
+		, CASE UPPER(TRIM(cst_t.cst_gndr)) -- in CASE, letters are not capitalized and have unwanted spaces
 			WHEN 'M' then 'Male'
 			WHEN 'F' then 'Female'
 			else 'n/a' -- not availabe
@@ -86,11 +86,11 @@ BEGIN
 		Print '------------- Product Info -------------';
 		
 		set @start_time = GETDATE();
-		-- in case the table is exist to AVOID data duplication
-		print 'Executing TRUNCATE'
+		-- in case the table exists to AVOID data duplication
+		print 'Executing TRUNCATE.';
 		TRUNCATE TABLE silver.crm_prd_info;
 		-- insert prd_info data
-		print 'Executing INSERT';
+		print 'Executing INSERT.';
 		INSERT INTO silver.crm_prd_info
 		(
 			prd_id
@@ -132,11 +132,11 @@ BEGIN
 		print '------------- Sales Details -------------';
 
 		set @start_time = GETDATE();
-		-- in case the table is exist to AVOID data duplication
-		print 'Executing TRUNCATE';
+		-- in case the table exists to AVOID data duplication
+		print 'Executing TRUNCATE.';
 		TRUNCATE TABLE silver.crm_sales_details;
 		-- insert sales_details data
-		print 'Executing INSERT';
+		print 'Executing INSERT.';
 
 		with cte as (
 		select 
@@ -207,7 +207,7 @@ BEGIN
 		print '------------- Customer AZ12 -------------';
 		
 		set @start_time = GETDATE();
-		-- in case the table is exist to AVOID data duplication
+		-- in case the table exists to AVOID data duplication
 		print 'Executing TRUNCATE';
 		TRUNCATE TABLE silver.erp_cust_az12;
 		-- insert cust_az12 data
@@ -247,7 +247,7 @@ BEGIN
 		print '------------- Loc A101 -------------'
 		
 		set @start_time = GETDATE();
-		-- in case the table is exist to AVOID data duplication
+		-- in case the table exists to AVOID data duplication
 		print 'Executing TRUNCATE';
 		TRUNCATE TABLE silver.erp_loc_a101;
 		-- insert loc_a101 data
@@ -280,7 +280,7 @@ BEGIN
 		print '------------- PX CAT G1V2 -------------';
 		
 		set @start_time = GETDATE();
-		-- in case the table is exist to AVOID data duplication
+		-- in case the table exists to AVOID data duplication
 		print 'Executing TRUNCATE';
 		TRUNCATE TABLE silver.erp_px_cat_g1v2;
 		-- insert px_cat_g1v2 data
@@ -317,7 +317,7 @@ BEGIN
 	
 	BEGIN CATCH
 		print '================================================';
-		print 'ERROT OCCURED DURING LOADING SILVER LAYER';
+		print 'ERROR OCCURRED DURING LOADING SILVER LAYER';
 		print 'ERROR MSG >> ' + ERROR_MESSAGE();
 		print 'ERROR NO. >> ' + CAST ( ERROR_NUMBER() AS NVARCHAR);
 		print 'ERROR STATUS >> ' + CAST ( ERROR_STATE() AS NVARCHAR);
