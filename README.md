@@ -59,9 +59,10 @@ sql-data-warehouse-project/
 │
 ├── docs/                               # Project documentation and architecture details
 │   ├── DataArchitecture.png           # shows the project's architecture
-│   ├── DataCatalog.png                # Catalog of datasets, including field descriptions and metadata
+│   ├── DataIntegration.png            # shows how tables are related
 │   ├── DataFlow.png                   # the data flow diagram
-│   ├── DataModels.png                 # data models (star schema)
+│   ├── DataCatalog.png                # Catalog of datasets, including field descriptions and metadata
+|   ├── DataModels.png                 # data models (star schema)
 │
 ├── scripts/                            # SQL scripts for ETL and transformations
 │   ├── bronze/                         # Scripts for extracting and loading raw data
