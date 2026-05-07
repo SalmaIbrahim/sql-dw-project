@@ -1,3 +1,25 @@
+
+/*
+	=======================================================
+	Stored ProcedureL Load Bronze Layer (Bronze -> Silver)
+	=======================================================
+	Script Purpose:
+		This Proc performs the Extract process from different sources and Load data to the bronze layer
+		to populate the bronze schema.
+
+	Actions Performed:
+		- Truncates bronze tables.
+		- Inserts extracted data from the Sources into the Bronze tables.
+
+	Parameters:
+		None.
+
+	Usage Example:
+		EXEC bronze.load_bronze;
+	=======================================================
+
+*/
+
 	
 	
 	-- want to load data from csv file to the DW

@@ -1,3 +1,20 @@
+/*
+	=======================================================
+	DDL Script: Create Bronze Layer Tables
+	=======================================================
+	Script Purpose:
+		This script creates tables for the Bronze layer.
+		The Bronze layer stores raw data exactly as it comes from source systems.
+
+		Using the naming convension (snake_case):
+			- table name -->   <soyurce system>_<entity_name>
+			- column name --> the name in the source system
+
+	Actions Performed:
+		- Drops bronze tables.
+		- Creates the tables defination for Bronze layer tables.
+	=======================================================
+*/
 -- creating the bronze objects
 -- table > naming convension <soyurce system>_<entity_name>
 -- column name = columns in the source system

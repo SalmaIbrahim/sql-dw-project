@@ -1,4 +1,24 @@
--- insert values to the Silver Layer
+/*
+	=======================================================
+	Stored ProcedureL Load Silver Layer (Bronze -> Silver)
+	=======================================================
+	Script Purpose:
+		This Proc performs the ETL (Extract -> from the bronze layer, Transform -> cleansing, Load -> to the silver layer) process 
+		to populate the silver schema from the bronze schema
+
+	Actions Performed:
+		- Truncates silver tables.
+		- Inserts transformed and cleansed data from Bronze into Silver tables.
+
+	Parameters:
+		None.
+
+	Usage Example:
+		EXEC silver.load_silver;
+	=======================================================
+
+*/
+
 CREATE OR ALTER PROC silver.load_silver
 AS
 BEGIN
@@ -29,6 +49,7 @@ BEGIN
 		, cst_gndr
 		, cst_marital_status
 		, cst_create_date
+		
 		)
 		SELECT cst_t.cst_id
 		, cst_t.cst_key
@@ -45,7 +66,7 @@ BEGIN
 			else 'n/a'
 		END cst_marital_status
 		, cst_t.cst_create_date
-
+		
 		FROM (
 		SELECT *
 		, ROW_NUMBER() OVER 
@@ -53,7 +74,8 @@ BEGIN
 			ORDER BY cst_create_date DESC) flag_lASt
 		FROM bronze.crm_cust_info 
 		) cst_t
-		WHERE flag_lASt = 1;
+		WHERE flag_lASt = 1 -- No duplication
+		AND cst_id IS NOT NULL; -- has null values
 
 		set @end_time = GETDATE();
 		PRINT 'Loading Duration >> ' + CAST ( DATEDIFF(SECOND, @start_time, @end_time) AS NVARCHAR) + ' Seconds.';
@@ -79,7 +101,8 @@ BEGIN
 			, prd_line
 			, prd_start_dt
 			, prd_end_dt
-	
+			, is_current
+			
 		)
 		SELECT 
 			prd_id
@@ -96,6 +119,8 @@ BEGIN
 			END prd_line
 			, CAST( prd_start_dt AS DATE) AS prd_start_dt
 			, CAST( DATEADD(DAY, -1, lead(prd_start_dt) OVER (PARTITION BY prd_key ORDER BY prd_start_dt)) AS DATE) prd_end_dt
+			, CASE WHEN prd_end_dt IS NULL THEN 1 ELSE 0 END is_current
+			
 		FROM bronze.crm_prd_info;
 
 		set @end_time = GETDATE();
@@ -158,6 +183,7 @@ BEGIN
 		, sls_sales
 		, sls_quantity
 		, sls_price
+		
 		)
 		select
 		sls_ord_num
@@ -169,6 +195,7 @@ BEGIN
 		, sls_sales
 		, sls_quantity
 		, sls_price
+		
 		from cte ;
 
 		set @end_time = GETDATE();
@@ -190,6 +217,7 @@ BEGIN
 		cid
 		, bdate
 		, gen
+		
 		)
 		select 
 		 CASE 
@@ -207,6 +235,7 @@ BEGIN
 			WHEN UPPER(TRIM(gen)) in ('M', 'MALE') THEN 'Male'
 			ELSE 'n/a'
 		 END gen
+		 
 		from bronze.erp_cust_az12;
 		
 		set @end_time = GETDATE();
@@ -227,6 +256,7 @@ BEGIN
 		(
 		cid
 		, cntry
+		
 		)
 		select 
 		REPLACE(TRIM(cid), '-', '') cid
@@ -236,6 +266,7 @@ BEGIN
 			WHEN TRIM(cntry) in ('United States', 'US', 'USA') THEN 'United States'
 			ELSE TRIM(cntry)
 		END cntry
+		
 		from bronze.erp_loc_a101;
 		
 		set @end_time = GETDATE();
@@ -260,12 +291,14 @@ BEGIN
 		, cat
 		, subcat
 		, maintenance
+		
 		)
 		select 
 		id
 		, cat
 		, subcat
 		, maintenance
+		
 		from bronze.erp_px_cat_g1v2;
 
 		set @end_time = GETDATE();

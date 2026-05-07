@@ -1,3 +1,22 @@
+/*
+	=======================================================
+	DDL Script: Create Silver Layer Tables
+	=======================================================
+	Script Purpose:
+		This script creates tables for the Silver layer.
+		The Silver layer is the final result after checking data Quality from the Bronze layer.
+
+		Each table contains clean, enriched, standarized, and corrected data.
+
+		Using the naming convension (snake_case):
+			- table name -->   <soyurce system>_<entity_name>
+			- column name --> the name in the source system
+
+	Actions Performed:
+		- Drops silver tables.
+		- Creates the tables defination for Silver layer tables.
+	=======================================================
+*/
 -- creating the silver objects
 -- table > naming convension <soyurce system>_<entity_name>
 -- column name = columns in the source system
@@ -31,6 +50,7 @@ prd_id iNT
 , prd_line NVARCHAR(50)
 , prd_start_dt DATE
 , prd_end_dt DATE
+, is_current BIT NOT NULL
 , dwh_create_date DATETIME2 DEFAULT GETDATE()
 );
 
