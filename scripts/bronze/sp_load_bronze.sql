@@ -3,7 +3,7 @@
 	Stored ProcedureL Load Bronze Layer (Bronze -> Silver)
 	=======================================================
 	Script Purpose:
-		This Proc performs the Extract process from different sources and Load data to the bronze layer
+		This Proc performs the Extract process from different sources and loads data to the bronze layer
 		to populate the bronze schema.
 
 		Using the Full Loads approach
