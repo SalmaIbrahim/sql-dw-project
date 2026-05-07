@@ -1,4 +1,3 @@
-
 /*
 	=======================================================
 	Stored ProcedureL Load Bronze Layer (Bronze -> Silver)
@@ -26,11 +25,11 @@
 	-- using Full Loads approach
 
 	------------- Notes -------------
-	-- how to handle the file in BULK INSERT [] WITH () statement 
-	-- 1st row is the header -->  (FIRSTROW = 2) > Skip 1st row
-	-- specify the Delimiter -->  (FIELDTERMINATOR = ',') >> the seperator is a comma
-	-- TABLOCK --> to Improve performance, Lock the entire table (no trans)
-
+	- how to handle the file in the BULK INSERT [] WITH () statement 
+	- 1st row is the header -->  (FIRSTROW = 2) > Skip 1st row
+	- specify the Delimiter -->  (FIELDTERMINATOR = ',') >> the seperator is a comma
+	- TABLOCK --> to improve performance, lock the entire table (no trans)
+*/
 	----------------------------------------------------------
 CREATE OR ALTER PROC bronze.load_bronze
 AS
