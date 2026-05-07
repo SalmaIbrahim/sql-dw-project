@@ -35,11 +35,11 @@ BEGIN
 		
 		set @start_time = GETDATE();
 		-- in case the table exists to AVOID data duplication
-		print 'Executing TRUNCATE.';
+		print 'Executing TRUNCATE...';
 		TRUNCATE TABLE silver.crm_cust_info;
 
 		-- insert cust_info data
-		print 'Executing INSERT.';
+		print 'Executing INSERT...';
 		INSERT INTO silver.crm_cust_info
 		(
 		cst_id
@@ -87,10 +87,10 @@ BEGIN
 		
 		set @start_time = GETDATE();
 		-- in case the table exists to AVOID data duplication
-		print 'Executing TRUNCATE.';
+		print 'Executing TRUNCATE...';
 		TRUNCATE TABLE silver.crm_prd_info;
 		-- insert prd_info data
-		print 'Executing INSERT.';
+		print 'Executing INSERT...';
 		INSERT INTO silver.crm_prd_info
 		(
 			prd_id
@@ -133,10 +133,10 @@ BEGIN
 
 		set @start_time = GETDATE();
 		-- in case the table exists to AVOID data duplication
-		print 'Executing TRUNCATE.';
+		print 'Executing TRUNCATE...';
 		TRUNCATE TABLE silver.crm_sales_details;
 		-- insert sales_details data
-		print 'Executing INSERT.';
+		print 'Executing INSERT...';
 
 		with cte as (
 		select 
@@ -208,10 +208,10 @@ BEGIN
 		
 		set @start_time = GETDATE();
 		-- in case the table exists to AVOID data duplication
-		print 'Executing TRUNCATE';
+		print 'Executing TRUNCATE...';
 		TRUNCATE TABLE silver.erp_cust_az12;
 		-- insert cust_az12 data
-		print 'Executing INSERT';	
+		print 'Executing INSERT...';	
 		insert into silver.erp_cust_az12
 		(
 		cid
@@ -248,10 +248,10 @@ BEGIN
 		
 		set @start_time = GETDATE();
 		-- in case the table exists to AVOID data duplication
-		print 'Executing TRUNCATE';
+		print 'Executing TRUNCATE...';
 		TRUNCATE TABLE silver.erp_loc_a101;
 		-- insert loc_a101 data
-		print 'Executing INSERT';
+		print 'Executing INSERT...';
 		insert into silver.erp_loc_a101
 		(
 		cid
@@ -281,10 +281,10 @@ BEGIN
 		
 		set @start_time = GETDATE();
 		-- in case the table exists to AVOID data duplication
-		print 'Executing TRUNCATE';
+		print 'Executing TRUNCATE...';
 		TRUNCATE TABLE silver.erp_px_cat_g1v2;
 		-- insert px_cat_g1v2 data
-		print 'Executing INSERT';
+		print 'Executing INSERT...';
 		insert into silver.erp_px_cat_g1v2
 		(
 		id
