@@ -6,6 +6,8 @@
 		This Proc performs the Extract process from different sources and Load data to the bronze layer
 		to populate the bronze schema.
 
+		Using the Full Loads approach
+
 	Actions Performed:
 		- Truncates bronze tables.
 		- Inserts extracted data from the Sources into the Bronze tables.
@@ -18,16 +20,12 @@
 	=======================================================
 
 */
-
-	
-	
-	-- want to load data from csv file to the DW
-	-- using Full Loads approach
-
+/*
 	------------- Notes -------------
-	- how to handle the file in the BULK INSERT [] WITH () statement 
+	  ** how to handle the file in the BULK INSERT [] WITH () statement **
 	- 1st row is the header -->  (FIRSTROW = 2) > Skip 1st row
-	- specify the Delimiter -->  (FIELDTERMINATOR = ',') >> the seperator is a comma
+	- specify the File Delimiter -->  (FIELDTERMINATOR = ',') >> the seperator is a comma
+	- specify the Row Delimiter -->  (ROWTERMINATOR = '\n') >> the seperator is an enter
 	- TABLOCK --> to improve performance, lock the entire table (no trans)
 */
 	----------------------------------------------------------
@@ -46,12 +44,12 @@ BEGIN
 		Print '------------- Customer Info -------------'
 		
 		set @start_time = GETDATE()
-		-- in case the table is exist to AVOID data duplication
-		print 'Executing TRUNCATE'
+		-- in case the table exists to AVOID data duplication
+		print 'Executing TRUNCATE.'
 		TRUNCATE TABLE bronze.crm_cust_info;
 
 		-- insert cust_info data
-		print 'Executing INSERT'
+		print 'Executing INSERT.'
 		BULK INSERT bronze.crm_cust_info
 		FROM 'D:\Projects\DataWarehouse\sql-dw-project\datasets\source_crm\cust_info.csv'
 		WITH (
@@ -70,11 +68,11 @@ BEGIN
 		Print '------------- Product Info -------------'
 		
 		set @start_time = GETDATE()
-		-- in case the table is exist to AVOID data duplication
-		print 'Executing TRUNCATE'
+		-- in case the table exists to AVOID data duplication
+		print 'Executing TRUNCATE.'
 		TRUNCATE TABLE bronze.crm_prd_info;
 		-- insert prd_info data
-		print 'Executing INSERT'
+		print 'Executing INSERT.'
 		BULK INSERT bronze.crm_prd_info
 		FROM 'D:\Projects\DataWarehouse\sql-dw-project\datasets\source_crm\prd_info.csv'
 		WITH (
@@ -94,11 +92,11 @@ BEGIN
 		print '------------- Sales Details -------------'
 
 		set @start_time = GETDATE()
-		-- in case the table is exist to AVOID data duplication
-		print 'Executing TRUNCATE'
+		-- in case the table exists to AVOID data duplication
+		print 'Executing TRUNCATE.'
 		TRUNCATE TABLE bronze.crm_sales_details;
 		-- insert sales_details data
-		print 'Executing INSERT'
+		print 'Executing INSERT.'
 		BULK INSERT bronze.crm_sales_details
 		FROM 'D:\Projects\DataWarehouse\sql-dw-project\datasets\source_crm\sales_details.csv'
 		WITH (
@@ -118,11 +116,11 @@ BEGIN
 		print '------------- Customer AZ12 -------------'
 		
 		set @start_time = GETDATE()
-		-- in case the table is exist to AVOID data duplication
-		print 'Executing TRUNCATE'
+		-- in case the table exists to AVOID data duplication
+		print 'Executing TRUNCATE.'
 		TRUNCATE TABLE bronze.erp_cust_az12;
 		-- insert cust_az12 data
-		print 'Executing INSERT'
+		print 'Executing INSERT.'
 		BULK INSERT bronze.erp_cust_az12
 		FROM 'D:\Projects\DataWarehouse\sql-dw-project\datasets\source_erp\cust_az12.csv'
 		WITH (
@@ -143,11 +141,11 @@ BEGIN
 		print '------------- Loc A101 -------------'
 		
 		set @start_time = GETDATE()
-		-- in case the table is exist to AVOID data duplication
-		print 'Executing TRUNCATE'
+		-- in case the table exists to AVOID data duplication
+		print 'Executing TRUNCATE.'
 		TRUNCATE TABLE bronze.erp_loc_a101;
 		-- insert loc_a101 data
-		print 'Executing INSERT'
+		print 'Executing INSERT.'
 		BULK INSERT bronze.erp_loc_a101
 		FROM 'D:\Projects\DataWarehouse\sql-dw-project\datasets\source_erp\loc_a101.csv'
 		WITH (
@@ -167,11 +165,11 @@ BEGIN
 		print '------------- PX CAT G1V2 -------------'
 		
 		set @start_time = GETDATE()
-		-- in case the table is exist to AVOID data duplication
-		print 'Executing TRUNCATE'
+		-- in case the table exists to AVOID data duplication
+		print 'Executing TRUNCATE.'
 		TRUNCATE TABLE bronze.erp_px_cat_g1v2;
 		-- insert px_cat_g1v2 data
-		print 'Executing INSERT'
+		print 'Executing INSERT.'
 		BULK INSERT bronze.erp_px_cat_g1v2
 		FROM 'D:\Projects\DataWarehouse\sql-dw-project\datasets\source_erp\px_cat_g1v2.csv'
 		WITH (
@@ -195,7 +193,7 @@ BEGIN
 	
 	BEGIN CATCH	
 		print '================================================'
-		print 'ERROT OCCURED DURING LOADING BRONZE LAYER'
+		print 'ERROR OCCURRED DURING LOADING BRONZE LAYER.'
 		print 'ERROR MSG >> ' + ERROR_MESSAGE();
 		print 'ERROR NO. >> ' + CAST ( ERROR_NUMBER() AS NVARCHAR);
 		print 'ERROR STATUS >> ' + CAST ( ERROR_STATE() AS NVARCHAR);
